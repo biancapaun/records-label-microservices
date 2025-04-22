@@ -1,7 +1,7 @@
-package com.labelapp.album_service.service;
+package com.labelapp.prizesservice.service;
 
 
-import com.labelapp.album_service.dto.PrizeDTO;
+import com.labelapp.prizesservice.dto.PrizeDTO;
 
 import java.util.List;
 

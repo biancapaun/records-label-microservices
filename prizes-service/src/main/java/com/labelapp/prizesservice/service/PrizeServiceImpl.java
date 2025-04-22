@@ -1,10 +1,10 @@
-package com.labelapp.album_service.service;
+package com.labelapp.prizesservice.service;
 
-import com.labelapp.album_service.dto.PrizeDTO;
-import com.labelapp.album_service.exceptions.ExternalServiceException;
-import com.labelapp.album_service.exceptions.ResourceNotFoundException;
-import com.labelapp.album_service.feign.ArtistClient;
-import com.labelapp.album_service.repository.PrizeRepository;
+import com.labelapp.prizesservice.dto.PrizeDTO;
+import com.labelapp.prizesservice.exceptions.ExternalServiceException;
+import com.labelapp.prizesservice.exceptions.ResourceNotFoundException;
+import com.labelapp.prizesservice.feign.ArtistClient;
+import com.labelapp.prizesservice.repository.PrizeRepository;
 import feign.FeignException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

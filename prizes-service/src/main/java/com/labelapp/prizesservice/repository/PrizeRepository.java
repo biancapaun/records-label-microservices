@@ -1,6 +1,6 @@
-package com.labelapp.album_service.repository;
+package com.labelapp.prizesservice.repository;
 
-import com.labelapp.album_service.domain.Prize;
+import com.labelapp.prizesservice.domain.Prize;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

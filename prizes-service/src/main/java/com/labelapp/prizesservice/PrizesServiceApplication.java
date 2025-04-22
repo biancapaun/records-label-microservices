@@ -1,4 +1,4 @@
-package com.labelapp.album_service;
+package com.labelapp.prizesservice;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

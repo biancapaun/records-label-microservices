@@ -1,4 +1,4 @@
-package com.labelapp.album_service.domain;
+package com.labelapp.prizesservice.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

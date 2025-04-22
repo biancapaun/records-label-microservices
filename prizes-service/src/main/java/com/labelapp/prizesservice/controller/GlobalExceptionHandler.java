@@ -1,7 +1,7 @@
-package com.labelapp.album_service.controller;
+package com.labelapp.prizesservice.controller;
 
 
-import com.labelapp.album_service.exceptions.ResourceNotFoundException;
+import com.labelapp.prizesservice.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

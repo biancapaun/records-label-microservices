@@ -1,7 +1,7 @@
-package com.labelapp.album_service.controller;
+package com.labelapp.prizesservice.controller;
 
-import com.labelapp.album_service.dto.PrizeDTO;
-import com.labelapp.album_service.service.PrizeServiceImpl;
+import com.labelapp.prizesservice.dto.PrizeDTO;
+import com.labelapp.prizesservice.service.PrizeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

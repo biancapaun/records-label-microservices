@@ -1,4 +1,4 @@
-package com.labelapp.album_service.dto;
+package com.labelapp.prizesservice.dto;
 
 
 import lombok.AllArgsConstructor;

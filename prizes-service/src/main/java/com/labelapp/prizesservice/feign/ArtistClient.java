@@ -1,6 +1,6 @@
-package com.labelapp.album_service.feign;
+package com.labelapp.prizesservice.feign;
 
-import com.labelapp.album_service.dto.PrizeDTO;
+import com.labelapp.prizesservice.dto.PrizeDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
