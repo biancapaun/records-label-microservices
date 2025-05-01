@@ -1,0 +1,27 @@
+.btn-yellow {
+    background-color: #f2c14b;
+    color: white;
+    border: none;
+}
+
+.btn-yellow:hover {
+    background-color: #d9aa39;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #FF6F61;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #e65f52;
+    color: white;
+    border: none;
+}
+
+.bg-yellow {
+    background-color: #f2c14b;
+}
+

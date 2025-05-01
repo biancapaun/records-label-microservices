@@ -1,4 +1,4 @@
-package com.labelapp.auth_service.dto;
+package com.labelapp.ui.dto.auth;
 
 import lombok.Getter;
 import lombok.Setter;

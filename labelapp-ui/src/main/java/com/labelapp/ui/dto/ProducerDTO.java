@@ -1,4 +1,4 @@
-package com.labelapp.producerservice.dto;
+package com.labelapp.ui.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

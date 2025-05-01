@@ -56,7 +56,7 @@
 </div>
 <div class="container">
     <h1>Producers</h1>
-    <div sec:authorize="hasRole('ADMIN')">
+    <div >
         <a class="btn btn-yellow mb-3" th:href="@{/producer/create}">
             <i class="fa-solid fa-plus"></i> Add Producer
         </a>
@@ -80,7 +80,7 @@
                 <a class="btn btn-sm btn-light" th:href="@{/producer/details/{id}(id=${producer.id})}">
                     <i class="fa-solid fa-circle-info"></i>
                 </a>
-                <div sec:authorize="hasRole('ADMIN')">
+                <div >
                     <a class="btn btn-sm btn-delete" onclick="return confirm('Are you sure?')"
                        th:href="@{/producer/delete/{id}(id=${producer.id})}">
                         <i class="fa-solid fa-trash"></i>

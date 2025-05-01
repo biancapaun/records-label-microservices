@@ -1,12 +1,10 @@
-package com.labelapp.album_service.dto;
+package com.labelapp.ui.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +13,6 @@ import java.util.List;
 @Setter
 public class AlbumDTO {
 
-    @Schema(hidden = true)
     private Long id;
 
     @NotNull(message = "Album title must not be null")

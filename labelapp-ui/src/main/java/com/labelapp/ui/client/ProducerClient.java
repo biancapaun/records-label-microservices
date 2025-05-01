@@ -1,33 +1,36 @@
 package com.labelapp.ui.client;
 
-import com.labelapp.ui.dto.ArtistDTO;
+import com.labelapp.ui.dto.ProducerDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "artist-service")
-public interface ArtistClient {
+@FeignClient(name = "producer-service")
+public interface ProducerClient {
 
-    @GetMapping("/artists/sorted/asc")
-    List<ArtistDTO> getAllArtistsSortedAsc();
+    @GetMapping("/producers/sorted/asc")
+    List<ProducerDTO> getAllProducersSortedAsc();
 
-    @GetMapping("/artists/sorted/desc")
-    List<ArtistDTO> getAllArtistsSortedDesc();
+    @GetMapping("/producers/sorted/desc")
+    List<ProducerDTO> getAllProducersSortedDesc();
 
-    @GetMapping("/artists")
-    List<ArtistDTO> getAllArtists(@RequestParam(name = "sortDir", defaultValue = "asc") String sortDir);
+    @GetMapping("/producers")
+    List<ProducerDTO> getAllProducers(@RequestParam(name = "sortDir", defaultValue = "asc") String sortDir);
 
 
-    @PostMapping("/artists")
-    void createArtist(@RequestBody ArtistDTO artistDTO);
+    @PostMapping("/producers")
+    void createProducer(@RequestBody ProducerDTO producerDTO);
 
-    @GetMapping("/artists/{id}")
-    ArtistDTO getArtistById(@PathVariable Long id);
+    @GetMapping("/producers/{id}")
+    ProducerDTO getProducerById(@PathVariable Long id);
 
-    @PutMapping("/artists/{id}")
-    void updateArtist(@PathVariable Long id, @RequestBody ArtistDTO artistDTO);
+    @PutMapping("/producers/{id}")
+    void updateProducer(@PathVariable Long id, @RequestBody  ProducerDTO producerDTO);
 
-    @DeleteMapping("/artists/{id}")
-    void deleteArtist(@PathVariable Long id);
+    @DeleteMapping("/producers/{id}")
+    void deleteProducer(@PathVariable Long id);
+
+    @GetMapping("/producers/count")
+    Long countProducers();
 }

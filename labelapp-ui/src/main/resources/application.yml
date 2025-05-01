@@ -1,6 +1,6 @@
 spring:
   application:
-    name: album-service
+    name: labelapp-ui
   profiles:
     active: dev
   config:

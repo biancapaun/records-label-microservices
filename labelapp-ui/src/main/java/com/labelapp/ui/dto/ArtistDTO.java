@@ -1,12 +1,10 @@
-package com.labelapp.album_service.dto;
+package com.labelapp.ui.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -14,6 +12,8 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ArtistDTO {
 
 

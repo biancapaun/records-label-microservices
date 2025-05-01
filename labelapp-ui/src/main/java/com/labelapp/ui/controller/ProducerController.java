@@ -11,87 +11,79 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/artist")
-public class ArtistController {
+@RequestMapping("/producer")
+public class ProducerController {
 
-    private final ArtistClient artistClient;
-    private final AlbumClient albumClient;
-    private final PrizeClient prizeClient;
-    private final ContractClient contractClient;
+//    private final ArtistClient artistClient;
+//    private final AlbumClient albumClient;
+//    private final PrizeClient prizeClient;
+//    private final ContractClient contractClient;
+    private final ProducerClient producerClient;
+    private final ProductionClient productionClient;
 //    private final SongClient songClient;
 
-    public ArtistController(ArtistClient artistClient, AlbumClient albumClient,
-                            PrizeClient prizeClient, ContractClient contractClient) {
-        this.artistClient = artistClient;
-        this.albumClient = albumClient;
-        this.prizeClient = prizeClient;
-        this.contractClient = contractClient;
+    public ProducerController(ProducerClient producerClient, ProductionClient productionClient) {
+//        this.artistClient = artistClient;
+//        this.albumClient = albumClient;
+//        this.prizeClient = prizeClient;
+//        this.contractClient = contractClient;
 //        this.songClient = songClient;
+        this.producerClient = producerClient;
+        this.productionClient = productionClient;
     }
 
     @GetMapping("")
-    public String artistList(@RequestParam(defaultValue = "asc") String sortDir, Model model) {
+    public String producerList(@RequestParam(defaultValue = "asc") String sortDir, Model model) {
         /*List<ArtistDTO> artists = sortDir.equals("desc")
                 ? artistClient.getAllArtistsSortedDesc()
                 : artistClient.getAllArtistsSortedAsc();
 
 */
-        List<ArtistDTO> artists = artistClient.getAllArtists(sortDir);
-        model.addAttribute("artists", artists);
+        List<ProducerDTO> producers = producerClient.getAllProducers(sortDir);
+        model.addAttribute("producers", producers);
         model.addAttribute("sortDir", sortDir);
-        return "artist/list";
+        return "producer/list";
     }
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("artist", new ArtistDTO());
-        return "artist/form";
+        model.addAttribute("producer", new ProducerDTO());
+        return "producer/form";
     }
 
     @PostMapping("/create")
-    public String createArtist(@Valid @ModelAttribute("artist") ArtistDTO artistDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "artist/form";
-        artistClient.createArtist(artistDto);
-        return "redirect:/artist";
+    public String createProducer(@Valid @ModelAttribute("producer")ProducerDTO producerDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "producer/form";
+        producerClient.createProducer(producerDTO);
+        return "redirect:/producer";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        ArtistDTO artist = artistClient.getArtistById(id);
-        model.addAttribute("artist", artist);
-        return "artist/form";
+        ProducerDTO producer = producerClient.getProducerById(id);
+        model.addAttribute("producer", producer);
+        return "producer/form";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateArtist(@PathVariable Long id, @ModelAttribute("artist") ArtistDTO artistDto) {
-        artistClient.updateArtist(id, artistDto);
-        return "redirect:/artist";
+    public String updateProducer(@PathVariable Long id, @ModelAttribute("producer") ProducerDTO producerDTO) {
+        producerClient.updateProducer(id, producerDTO);
+        return "redirect:/producer";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteArtist(@PathVariable Long id) {
-        artistClient.deleteArtist(id);
-        return "redirect:/artist";
+    public String deleteProducer(@PathVariable Long id) {
+        producerClient.deleteProducer(id);
+        return "redirect:/producer";
     }
 
     @GetMapping("/details/{id}")
-    public String showArtistDetails(@PathVariable Long id, Model model) {
-        ArtistDTO artist = artistClient.getArtistById(id);
-        List<AlbumDTO> albums = albumClient.getAlbumsByArtist(id);
-        List<PrizeDTO> prizes = prizeClient.getPrizesByArtist(id);
-        List<ContractDTO> contracts = contractClient.getContractsByArtist(id);
+    public String showProducerDetails(@PathVariable Long id, Model model) {
+        ProducerDTO producer = producerClient.getProducerById(id);
+        model.addAttribute("producer", producer);
+        List<ProductionDTO> productions = productionClient.getProductionsByProducerId(id);
+        model.addAttribute("productions", productions);
 
-//        albums.forEach(album -> {
-//            List<SongDTO> songs = songClient.getSongsByAlbum(album.getId());
-//            album.setSongs(songs);
-//        });
-
-        model.addAttribute("artist", artist);
-        model.addAttribute("albums", albums);
-        model.addAttribute("prizes", prizes);
-        model.addAttribute("contracts", contracts);
-//        model.addAttribute("newSong", new SongDTO());
-
-        return "artist/details";
+        return "producer/details";
     }
 }

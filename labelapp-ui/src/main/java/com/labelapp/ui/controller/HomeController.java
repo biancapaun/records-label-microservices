@@ -1,6 +1,9 @@
-package com.recordslabel.labelapp.controllers;
+package com.labelapp.ui.controller;
 
-import com.recordslabel.labelapp.services.*;
+import com.labelapp.ui.client.AlbumClient;
+import com.labelapp.ui.client.ArtistClient;
+import com.labelapp.ui.client.PrizeClient;
+import com.labelapp.ui.client.ProducerClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,35 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/home")
 public class HomeController {
 
-    ArtistServiceImpl artistService;
+   AlbumClient albumClient;
+   ArtistClient artistClient;
+   PrizeClient prizeClient;
+   ProducerClient producerClient;
 
-    AlbumServiceImpl albumService;
-
-    SongServiceImpl songService;
-
-    ProducerServiceImpl producerService;
-
-    PrizeServiceImpl prizeService;
-
-    public HomeController(ArtistServiceImpl artistService,
-                          AlbumServiceImpl albumService,
-                          SongServiceImpl songService,
-                          ProducerServiceImpl producerService,
-                          PrizeServiceImpl prizeService) {
-        this.artistService = artistService;
-        this.albumService = albumService;
-        this.songService = songService;
-        this.producerService = producerService;
-        this.prizeService = prizeService;
+    public HomeController(AlbumClient albumClient, ArtistClient artistClient,
+                          PrizeClient prizeClient,ProducerClient producerClient ) {
+        this.albumClient = albumClient;
+        this.artistClient = artistClient;
+        this.prizeClient = prizeClient;
+        this.producerClient = producerClient;
     }
 
     @GetMapping("")
     public String showHomePage(Model model) {
-        model.addAttribute("artists", artistService.findAllArtists().size());
-        model.addAttribute("albums", albumService.findAllAlbums());
-        model.addAttribute("songs", songService.findAllSongs().size());
-        model.addAttribute("producers", producerService.findAllProducers().size());
-        model.addAttribute("prizes", prizeService.findAllPrizes());
+        model.addAttribute("albums", albumClient.countAlbums());
+        model.addAttribute("artists", artistClient.countArtists());
+        model.addAttribute("prizes", prizeClient.countPrizes());
+        model.addAttribute("producers", producerClient.countProducers());
         return "home";
     }
 }

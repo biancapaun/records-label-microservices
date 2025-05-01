@@ -1,41 +1,32 @@
-package com.recordslabel.labelapp.controllers;
+package com.labelapp.ui.controller;
 
-
-import com.recordslabel.labelapp.dtos.AlbumDTO;
-import com.recordslabel.labelapp.services.AlbumServiceImpl;
-import com.recordslabel.labelapp.services.ArtistServiceImpl;
-import jakarta.validation.Valid;
+import com.labelapp.ui.client.AlbumClient;
+import com.labelapp.ui.dto.AlbumDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/album")
 public class AlbumController {
 
-    AlbumServiceImpl albumService;
-    ArtistServiceImpl artistService;
+    private final AlbumClient albumClient;
 
-    public AlbumController(ArtistServiceImpl artistService, AlbumServiceImpl albumService) {
-        this.artistService = artistService;
-        this.albumService = albumService;
+    public AlbumController(AlbumClient albumClient) {
+        this.albumClient = albumClient;
     }
 
     @GetMapping("/create")
-    public String showCreateForm(@RequestParam("artistId") Long artistId, Model model) {
-        AlbumDTO albumDTO = new AlbumDTO();
-        albumDTO.setArtistId(artistId);
-        model.addAttribute("album", albumDTO);
+    public String showCreateAlbumForm(@RequestParam("artistId") Long artistId, Model model) {
+        AlbumDTO album = new AlbumDTO();
+        album.setArtistId(artistId);
+        model.addAttribute("album", album);
         return "album/form";
     }
 
     @PostMapping("/create")
-    public String createAlbum(@Valid @ModelAttribute("album") AlbumDTO albumDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "album/form";
-        }
-        albumService.createAlbumForArtist(albumDto);
-        return "redirect:/artist/details/" + albumDto.getArtistId();
+    public String createAlbum(@ModelAttribute("album") AlbumDTO albumDTO) {
+        albumClient.createAlbum(albumDTO);
+        return "redirect:/artist/details/" + albumDTO.getArtistId();
     }
 }

@@ -1,4 +1,4 @@
-package com.labelapp.production_service.domain;
+package com.labelapp.ui.dto;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

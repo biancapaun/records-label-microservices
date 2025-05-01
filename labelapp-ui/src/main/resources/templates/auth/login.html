@@ -11,10 +11,10 @@
 <div class="container mt-5 col-md-4">
     <h2>Login</h2>
 
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/auth/login}" method="post">
         <div class="mb-3">
             <label>Email</label>
-            <input name="username" class="form-control" type="email" required/>
+            <input name="email" class="form-control" type="email" required/>
         </div>
         <div class="mb-3">
             <label>Password</label>

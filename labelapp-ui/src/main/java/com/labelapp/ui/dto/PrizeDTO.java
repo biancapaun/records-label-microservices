@@ -1,21 +1,24 @@
-package com.labelapp.prizesservice.dto;
+package com.labelapp.ui.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Getter
+@Setter
 public class PrizeDTO {
-
     private Long id;
-    private String nume;
-    private String categorie;
-    private Integer an;
+
+    private String name;
+
+    private String category;
+
+    private String year;
+
     private Long artistId;
+
 
 }

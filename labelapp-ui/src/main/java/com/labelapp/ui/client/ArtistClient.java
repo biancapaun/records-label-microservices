@@ -30,4 +30,7 @@ public interface ArtistClient {
 
     @DeleteMapping("/artists/{id}")
     void deleteArtist(@PathVariable Long id);
+
+    @GetMapping("/artists/count")
+    Long countArtists();
 }

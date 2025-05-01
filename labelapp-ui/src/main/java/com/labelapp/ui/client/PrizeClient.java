@@ -12,4 +12,7 @@ public interface PrizeClient {
 
     @GetMapping("/prizes/artist/{artistId}")
     List<PrizeDTO> getPrizesByArtist(@PathVariable Long artistId);
+
+    @GetMapping("/prizes/count")
+    Long countPrizes();
 }

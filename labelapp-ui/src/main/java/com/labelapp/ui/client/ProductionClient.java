@@ -1,33 +1,18 @@
 package com.labelapp.ui.client;
 
-import com.labelapp.ui.dto.ProducerDTO;
+import com.labelapp.ui.dto.ProductionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "producer-service")
-public interface ProducerClient {
+@FeignClient(name = "production-service")
+public interface ProductionClient {
 
-    @GetMapping("/producers/sorted/asc")
-    List<ProducerDTO> getAllProducersSortedAsc();
-
-    @GetMapping("/producers/sorted/desc")
-    List<ProducerDTO> getAllProducersSortedDesc();
-
-    @GetMapping("/producers")
-    List<ProducerDTO> getAllProducers(@RequestParam(name = "sortDir", defaultValue = "asc") String sortDir);
+    @GetMapping("/productions/producer/{producerId}")
+    List<ProductionDTO> getProductionsByProducerId(@PathVariable Long producerId);
 
 
-    @PostMapping("/producers")
-    void createProducer(@RequestBody ProducerDTO producerDTO);
 
-    @GetMapping("/producers/{id}")
-    ProducerDTO getProducerById(@PathVariable Long id);
-
-    @PutMapping("/producers/{id}")
-    void updateProducer(@PathVariable Long id, @RequestBody  ProducerDTO producerDTO);
-
-    @DeleteMapping("/producers/{id}")
-    void deleteProducer(@PathVariable Long id);
 }

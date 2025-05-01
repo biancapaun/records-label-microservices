@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Artists List</title>
@@ -76,7 +76,7 @@
     </div>
 
     <h3 class="mt-4">Albums</h3>
-    <div sec:authorize="hasRole('ADMIN')">
+    <div>
         <a class="btn btn-yellow" th:href="@{/album/create(artistId=${artist.id})}">
             <i class="fa-solid fa-plus"></i> Add Album
         </a>
@@ -90,7 +90,7 @@
                     <a data-bs-toggle="modal" href="#" th:attr="data-bs-target='#songsModal__' + ${album.id}">
                         <i class="fa fa-music text-body-tertiary ms-2 "></i>
                     </a>
-                    <div sec:authorize="hasRole('ADMIN')">
+                    <div>
                         <a data-bs-toggle="modal" href="#"
                            th:attr="data-bs-target='#addSongModal__' + ${album.id}">
                             <i class="fa fa-plus text-body-emphasis ms-2"></i>
@@ -114,43 +114,17 @@
                         </h5>
                         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
                     </div>
-                    <div class="modal-body">
-                        <ul>
-                            <li th:each="song : ${album.songs}">
-                                <span th:text="${song.title}">Song Title</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" tabindex="-1" th:id="'addSongModal__' + ${album.id}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" th:action="@{/song/create}" th:object="${newSong}">
-                        <input name="albumId" th:value="${album.id}" type="hidden"/>
-                        <input name="artistId" th:value="${artist.id}" type="hidden"/>
-
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add New Song</h5>
-                            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Title</label>
-                                <input class="form-control" required th:field="*{title}" type="text"/>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-yellow" type="submit">Save</button>
-                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
-                        </div>
-                    </form>
+                    <!-- <div class="modal-body">
+                         <ul>
+                             <li th:each="song : ${album.songs}">
+                                 <span th:text="${song.title}">Song Title</span>
+                             </li>
+                         </ul>
+                     </div>-->
                 </div>
             </div>
         </div>
     </div>
-
 
     <h3 class="mt-4">Prizes</h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
@@ -172,16 +146,23 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
                     <p class="card-text">
-                        <strong>Strat Date:</strong> <span th:text="${contract.startDate}">2024-01-01</span><br>
-                        <strong>EndDate:</strong> <span th:text="${contract.endDate}">2025-01-01</span><br>
-                        <strong>Label name:</strong> <span
-                            th:text="${contract.label.labelName}">Global Records</span>
+                        <strong>Start Date:</strong> <span th:text="${contract.startDate}">2024-01-01</span><br>
+                        <strong>End Date:</strong> <span th:text="${contract.endDate}">2025-01-01</span><br>
+                        <!-- <strong>Label name:</strong> <span th:text="${contract.label.labelName}">Global Records</span> -->
                     </p>
                 </div>
             </div>
         </div>
     </div>
-    <a class="btn btn-secondary mt-3" href="/artist">Back to list</a>
 </div>
+
+
+<!-- Butonul Back to list -->
+<div class="text-center mt-4">
+    <a class="btn btn-secondary" href="/artist">
+        <i class="fas fa-arrow-left"></i> Back to list
+    </a>
+</div>
+
 </body>
 </html>

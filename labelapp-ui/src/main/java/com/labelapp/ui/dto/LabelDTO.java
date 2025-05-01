@@ -1,4 +1,4 @@
-package com.labelapp.contractservice.dto;
+package com.labelapp.ui.dto;
 
 
 import lombok.*;

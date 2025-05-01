@@ -1,6 +1,5 @@
-package com.labelapp.production_service.dto;
+package com.labelapp.ui.dto;
 
-import com.labelapp.production_service.domain.ProductionId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

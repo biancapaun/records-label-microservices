@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.dtos;
+package com.labelapp.ui.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
