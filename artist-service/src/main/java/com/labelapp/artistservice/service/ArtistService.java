@@ -15,7 +15,4 @@ public interface ArtistService {
     List<ArtistDTO> findAllArtistsSortedAsc();
     List<ArtistDTO> findAllArtistsSortedDesc();
 
-
-
-
 }

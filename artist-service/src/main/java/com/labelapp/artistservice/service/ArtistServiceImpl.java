@@ -102,5 +102,9 @@ public class ArtistServiceImpl implements ArtistService {
                 .collect(Collectors.toList());
     }
 
+    public Long countArtists(){
+        return artistRepository.count();
+    }
+
 
 }

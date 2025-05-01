@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/artists")
+@RequestMapping("/artists")
 public class ArtistController {
 
     private final ArtistServiceImpl artistService;
@@ -17,6 +17,7 @@ public class ArtistController {
     public ArtistController(ArtistServiceImpl artistService) {
         this.artistService = artistService;
     }
+
 
     @GetMapping
     public ResponseEntity<List<ArtistDTO>> getAllArtists(
@@ -48,6 +49,11 @@ public class ArtistController {
     public ResponseEntity<Void> deleteArtist(@PathVariable Long id) {
         artistService.deleteArtistById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/count")
+    public Long count() {
+        return artistService.countArtists();
     }
 }
 

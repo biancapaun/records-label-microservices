@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class ArtistDTO {
 
-
+    private Long id;
     @NotNull(message = "sceneName must not be null")
     @NotBlank(message = "sceneName must be a non-empty string")
     private String sceneName;
