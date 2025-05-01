@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.dtos;
+package com.labelapp.contractservice.dto;
 
 
 import lombok.*;

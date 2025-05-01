@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.entities;
+package com.labelapp.contractservice.domain;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -29,10 +29,4 @@ public class Label {
     @Column(name="an_infiintare")
     private Integer foundedYear;
 
-    @OneToMany(mappedBy = "label", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Contract> contracts;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_adrese")
-    private Address address;
 }

@@ -1,6 +1,7 @@
-package com.recordslabel.labelapp.services;
+package com.labelapp.contractservice.service;
 
-import com.recordslabel.labelapp.dtos.ContractDTO;
+
+import com.labelapp.contractservice.dto.ContractDTO;
 
 import java.util.List;
 

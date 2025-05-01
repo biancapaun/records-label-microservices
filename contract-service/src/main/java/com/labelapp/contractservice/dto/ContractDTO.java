@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.dtos;
+package com.labelapp.contractservice.dto;
 
 import lombok.*;
 
@@ -18,4 +18,7 @@ public class ContractDTO {
     private LocalDate endDate;
 
     private LabelDTO label;
+
+    private Long artistId;
+
 }

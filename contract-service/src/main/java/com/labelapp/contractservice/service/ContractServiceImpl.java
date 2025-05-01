@@ -1,18 +1,17 @@
-package com.recordslabel.labelapp.services;
+package com.labelapp.contractservice.service;
 
-import com.recordslabel.labelapp.dtos.ContractDTO;
-import com.recordslabel.labelapp.entities.Artist;
-import com.recordslabel.labelapp.exceptions.ResourceNotFoundException;
-import com.recordslabel.labelapp.repositories.ArtistRepository;
-import com.recordslabel.labelapp.repositories.ContractRepository;
+import com.labelapp.contractservice.dto.ContractDTO;
+import com.labelapp.contractservice.exceptions.ExternalServiceException;
+import com.labelapp.contractservice.exceptions.ResourceNotFoundException;
+import com.labelapp.contractservice.feign.ArtistClient;
+import com.labelapp.contractservice.repository.ContractRepository;
+import feign.FeignException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -21,29 +20,33 @@ public class ContractServiceImpl implements ContractService {
 
 
     ContractRepository contractRepository;
-    ArtistRepository artistRepository;
+    private final ArtistClient artistClient;
+    private final ModelMapper modelMapper;
 
-    ModelMapper modelMapper;
 
-    public ContractServiceImpl(ArtistRepository artistRepository, ContractRepository contractRepository, ModelMapper modelMapper){
-        this.artistRepository = artistRepository;
+    public ContractServiceImpl(ArtistClient artistClient, ContractRepository contractRepository, ModelMapper modelMapper){
+        this.artistClient = artistClient;
         this.contractRepository = contractRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<ContractDTO> findContractsById(Long id) {
-        logger.info("Finding contracts for artist ID: {}",id);
-        Optional<Artist> artist = artistRepository.findById(id);
-        if (!artist.isPresent()) {
-            logger.warn("Artist with id {} not found", id);
-            throw new ResourceNotFoundException("Artist with id " + id + " not found");
+    public List<ContractDTO> findContractsById(Long artistId) {
+        ContractDTO artist;
+        try {
+            artist = artistClient.getArtistById(artistId);
+        } catch (FeignException e) {
+            if (e.status() == 404) {
+                throw new ResourceNotFoundException("Artist with id " + artistId + " not found.");
+            } else {
+                throw new ExternalServiceException("Error connecting to artist-service: " + e.status());
+            }
         }
-        List<ContractDTO> contracts =  artist.get().getContracts().stream()
+
+        return contractRepository.findByArtistId(artistId)
+                .stream()
                 .map(contract -> modelMapper.map(contract, ContractDTO.class))
                 .toList();
-
-        logger.debug("Found {} contracts for artist ID {}", contracts.size(), id);
-        return  contracts;
     }
+
 }
