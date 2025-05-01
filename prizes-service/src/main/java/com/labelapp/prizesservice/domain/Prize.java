@@ -17,9 +17,14 @@ public class Prize {
     @Column(name = "id_premiu")
     private Long id;
 
-    private String nume;
-    private String categorie;
-    private Integer an;
+    @Column(name = "nume")
+    private String name;
+
+    @Column(name = "categorie")
+    private String category;
+
+    @Column(name = "an")
+    private Integer year;
 
     @Column(name = "id_artist")
     private Long artistId;

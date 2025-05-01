@@ -20,6 +20,11 @@ public class PrizeController {
         List<PrizeDTO> prizes = prizeService.findPrizesByArtistId(artistId);
         return ResponseEntity.ok(prizes);
     }
+
+    @GetMapping("/count")
+    public Long countPrizes(){
+        return prizeService.countPrizes();
+    }
 }
 
 

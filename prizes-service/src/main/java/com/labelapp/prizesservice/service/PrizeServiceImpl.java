@@ -42,4 +42,8 @@ public class PrizeServiceImpl implements PrizeService {
                 .map(prize -> modelMapper.map(prize, PrizeDTO.class))
                 .toList();
     }
+
+    public Long countPrizes(){
+        return prizeRepository.count();
+    }
 }
