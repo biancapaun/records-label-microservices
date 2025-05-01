@@ -84,16 +84,22 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     public List<ProducerDTO> findAllProducersSortedAsc() {
-        return producerRepository.findAllByOrderBySceneNameAsc()
+        return producerRepository.findAllByOrderByNameAsc()
                 .stream()
                 .map(producer -> modelMapper.map(producer, ProducerDTO.class))
                 .collect(Collectors.toList());
     }
 
     public List<ProducerDTO> findAllProducersSortedDesc() {
-        return producerRepository.findAllByOrderBySceneNameDesc()
+        return producerRepository.findAllByOrderByNameDesc()
                 .stream()
                 .map(producer -> modelMapper.map(producer, ProducerDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public Long count(){
+        return producerRepository.count();
+    }
+
+
 }

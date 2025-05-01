@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProducerRepository extends CrudRepository<Producer, Long> {
 
     List<Producer> findAllByOrderByIdAsc();
-    List<Producer> findAllByOrderBySceneNameAsc();
-    List<Producer> findAllByOrderBySceneNameDesc();
+    List<Producer> findAllByOrderByNameAsc();
+    List<Producer> findAllByOrderByNameDesc();
 
 }
