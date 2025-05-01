@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.enums;
+package com.labelapp.auth_service.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

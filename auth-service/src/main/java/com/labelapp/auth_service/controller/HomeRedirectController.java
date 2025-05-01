@@ -1,4 +1,4 @@
-package com.recordslabel.labelapp.controllers.security;
+package com.labelapp.auth_service.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ public class HomeRedirectController {
 
     @GetMapping("/")
     public String redirectToAuth() {
-        return "redirect:/register";
+        return "redirect:/user/register";
     }
 }

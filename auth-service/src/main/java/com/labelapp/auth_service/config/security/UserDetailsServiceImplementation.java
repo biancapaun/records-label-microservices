@@ -1,14 +1,13 @@
-package com.group.greatreadsbe.config.security;
+package com.labelapp.auth_service.config.security;
 
-import com.group.greatreadsbe.model.User;
-import com.group.greatreadsbe.persistance.UserRepository;
+import com.labelapp.auth_service.model.User;
+import com.labelapp.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
@@ -17,7 +16,6 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));

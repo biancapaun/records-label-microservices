@@ -1,4 +1,4 @@
-package com.group.greatreadsbe.dto.auth;
+package com.labelapp.auth_service.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
-package com.recordslabel.labelapp.entities;
+package com.labelapp.auth_service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.recordslabel.labelapp.enums.Role;
+import com.labelapp.auth_service.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

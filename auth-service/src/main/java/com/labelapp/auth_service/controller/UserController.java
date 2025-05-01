@@ -1,27 +1,25 @@
-package com.group.greatreadsbe.controller;
+package com.labelapp.auth_service.controller;
 
-import com.group.greatreadsbe.config.security.service.JWTService;
-import com.group.greatreadsbe.config.security.service.UserService;
-import com.group.greatreadsbe.dto.auth.LoginRequestDTO;
-import com.group.greatreadsbe.dto.auth.RegisterRequestDTO;
-import com.group.greatreadsbe.model.User;
-import com.group.greatreadsbe.persistance.BookRepository;
-import com.group.greatreadsbe.persistance.UserRepository;
+import com.labelapp.auth_service.config.security.service.JWTService;
+import com.labelapp.auth_service.config.security.service.UserService;
+import com.labelapp.auth_service.dto.LoginRequestDTO;
+import com.labelapp.auth_service.dto.RegisterRequestDTO;
+import com.labelapp.auth_service.model.User;
+import com.labelapp.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @RestController
 @RequestMapping("/user")
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableMethodSecurity(securedEnabled = true)
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
     @Autowired
@@ -30,15 +28,10 @@ public class UserController {
     JWTService jwtService;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private BookRepository bookRepository;
+
     @Autowired
     private UserService userService;
 
-    @GetMapping("/all")
-    public List<User> getAllRegisteredUsers() {
-        return userRepository.findAll();
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequest) {

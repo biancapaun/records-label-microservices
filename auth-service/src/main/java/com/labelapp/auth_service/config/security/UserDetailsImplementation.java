@@ -1,7 +1,7 @@
-package com.group.greatreadsbe.config.security;
+package com.labelapp.auth_service.config.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.group.greatreadsbe.model.User;
+import com.labelapp.auth_service.model.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
