@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artists List</title>
+
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler text-white" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="btn btn-outline-light ms-2" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container mt-4">
+    <h2>Artist Details</h2>
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="row g-0">
+            <div class="col-md-2 d-flex align-items-center justify-content-center text-bg-danger text-white">
+                <i class="fa-solid fa-user fa-4x"></i>
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h4 class="card-title mb-2" th:text="${artist.sceneName}">Scene Name</h4>
+                    <p class="card-text">
+                        <strong>Real Name:</strong> <span th:text="${artist.realName}"></span><br>
+                        <strong>Date of Birth:</strong> <span th:text="${artist.dateOfBirth}"></span><br>
+                        <strong>Origin Country:</strong> <span th:text="${artist.originCountry}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-4">Albums</h3>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a class="btn btn-yellow" th:href="@{/album/create(artistId=${artist.id})}">
+            <i class="fa-solid fa-plus"></i> Add Album
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+        <div class="col" th:each="album : ${albums}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${album.title}">Album Title</h5>
+                    <a data-bs-toggle="modal" href="#" th:attr="data-bs-target='#songsModal__' + ${album.id}">
+                        <i class="fa fa-music text-body-tertiary ms-2 "></i>
+                    </a>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a data-bs-toggle="modal" href="#"
+                           th:attr="data-bs-target='#addSongModal__' + ${album.id}">
+                            <i class="fa fa-plus text-body-emphasis ms-2"></i>
+                        </a>
+                    </div>
+                    <p class="card-text">
+                        <strong>Release Date:</strong> <span th:text="${album.releaseDate}">2024-01-01</span><br>
+                        <strong>Genre:</strong> <span th:text="${album.genre.genreName}">Pop</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:each="album : ${albums}">
+        <div aria-hidden="true" class="modal fade" tabindex="-1" th:id="'songsModal__' + ${album.id}">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Songs from <span th:text="${album.title}">Album Title</span>
+                        </h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li th:each="song : ${album.songs}">
+                                <span th:text="${song.title}">Song Title</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" th:id="'addSongModal__' + ${album.id}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" th:action="@{/song/create}" th:object="${newSong}">
+                        <input name="albumId" th:value="${album.id}" type="hidden"/>
+                        <input name="artistId" th:value="${artist.id}" type="hidden"/>
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add New Song</h5>
+                            <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Title</label>
+                                <input class="form-control" required th:field="*{title}" type="text"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-yellow" type="submit">Save</button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h3 class="mt-4">Prizes</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+        <div class="col" th:each="prize : ${prizes}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${prize.name}">Prize Name</h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> <span th:text="${prize.category}">Category</span><br>
+                        <strong>Year:</strong> <span th:text="${prize.year}">2024</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4">Contracts</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+        <div class="col" th:each="contract : ${contracts}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Strat Date:</strong> <span th:text="${contract.startDate}">2024-01-01</span><br>
+                        <strong>EndDate:</strong> <span th:text="${contract.endDate}">2025-01-01</span><br>
+                        <strong>Label name:</strong> <span
+                            th:text="${contract.label.labelName}">Global Records</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-secondary mt-3" href="/artist">Back to list</a>
+</div>
+</body>
+</html>

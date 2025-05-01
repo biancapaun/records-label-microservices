@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artists List</title>
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler text-white" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="btn btn-outline-light ms-2" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Welcome to Records Label Dashboard</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card border-primary shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                    <h5 class="card-title">Total Artists</h5>
+                    <p class="card-text fs-4" th:text="${artists}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-success shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fa fa-compact-disc fa-2x text-success mb-2"></i>
+                    <h5 class="card-title">Total Albums</h5>
+                    <p class="card-text fs-4" th:text="${albums}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-warning shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fa fa-music fa-2x text-warning mb-2"></i>
+                    <h5 class="card-title">Total Songs</h5>
+                    <p class="card-text fs-4" th:text="${songs}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-info shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fa fa-user-tie fa-2x text-info mb-2"></i>
+                    <h5 class="card-title">Total Producers</h5>
+                    <p class="card-text fs-4" th:text="${producers}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-danger shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fa fa-award fa-2x text-danger mb-2"></i>
+                    <h5 class="card-title">Total Prizes</h5>
+                    <p class="card-text fs-4" th:text="${prizes}">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-yellow" href="/artist">Go to Artists</a>
+        <a class="btn btn-outline-secondary" href="/producer">Go to Producers</a>
+    </div>
+</div>
+
+</body>
+</html>

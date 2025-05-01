@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Add Album'">Album Form</title>
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler text-white" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="btn btn-outline-light ms-2" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+
+    <h2>Album Form</h2>
+
+    <form class="needs-validation border rounded p-4 shadow-sm bg-white"
+          method="post"
+          th:action="@{'/album/create'}"
+          th:object="${album}">
+
+        <input th:field="*{id}" type="hidden"/>
+        <input th:field="*{artistId}" type="hidden"/>
+
+        <div class="mb-3">
+            <label for="title">Title</label>
+            <input class="form-control" id="title" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''" th:field="*{title}"
+                   type="text">
+            <div class="invalid-feedback" th:errors="*{title}"
+                 th:if="${#fields.hasErrors('title')}">Invalid title
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="genre.genreName">Genre</label>
+            <input class="form-control" id="genre.genreName" th:classappend="${#fields.hasErrors('genre.genreName')} ? 'is-invalid' : ''" th:field="*{genre.genreName}"
+                   type="text">
+            <div class="invalid-feedback" th:errors="*{genre.genreName}"
+                 th:if="${#fields.hasErrors('genre.genreName')}">Invalid genre name
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="releaseDate">Release Date</label>
+            <input class="form-control" id="releaseDate" th:field="*{releaseDate}" type="date">
+        </div>
+
+        <button class="btn btn-yellow" type="submit">Save</button>
+        <a class="btn btn-secondary ms-2" th:href="@{'/artist/details/' + ${album.artistId}}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

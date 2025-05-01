@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artists List</title>
+
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler text-white" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="btn btn-outline-light ms-2" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <h1>Producers</h1>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a class="btn btn-yellow mb-3" th:href="@{/producer/create}">
+            <i class="fa-solid fa-plus"></i> Add Producer
+        </a>
+    </div>
+    <table class="table table-striped table-bordered table-light">
+        <thead class="table-light">
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Origin Country</th>
+        </tr>
+        </thead>
+        <tr th:each="producer : ${producers}">
+            <td th:text="${producer.name}">Producer Name</td>
+            <td th:text="${producer.specialization}">Specialization</td>
+            <td th:text="${producer.originCountry}">Origin Country</td>
+            <td>
+                <a class="btn btn-sm btn-yellow" th:href="@{/producer/edit/{id}(id=${producer.id})}">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <a class="btn btn-sm btn-light" th:href="@{/producer/details/{id}(id=${producer.id})}">
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a class="btn btn-sm btn-delete" onclick="return confirm('Are you sure?')"
+                       th:href="@{/producer/delete/{id}(id=${producer.id})}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

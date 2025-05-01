@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Producer List</title>
+
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-outline-light ms-2">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container mt-4">
+    <h2>Producer Details</h2>
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="row g-0">
+            <div class="col-md-2 d-flex align-items-center justify-content-center text-bg-danger text-white">
+                <i class="fa-solid fa-user fa-4x"></i>
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h4 class="card-title mb-2" th:text="${producer.name}">Producer name</h4>
+                    <p class="card-text">
+                        <strong>Specialization:</strong> <span th:text="${producer.specialization}"></span><br>
+                        <strong>Origin Country:</strong> <span th:text="${producer.originCountry}"></span>
+                    </p>
+                </div>
+            </div>
+            <h3 class="mt-4">Productions</h3>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+                <div class="col" th:each="production : ${productions}">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${production.productionType}">Production type</h5>
+                            <p class="card-text">
+                                <strong>Budget:</strong> <span th:text="${production.budget}">Budget</span><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-secondary mt-3" href="/producer">Back to list</a>
+</div>
+</body>
+</html>

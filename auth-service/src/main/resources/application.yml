@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: dev
+  config:
+    import: "configserver:http://localhost:8888"
+jwt:
+  secret: qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfgh
+  accessTokenValiditityMS: 86400000
+  cookieName: auth-cookie

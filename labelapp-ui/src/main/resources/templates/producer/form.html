@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#strings.isEmpty(producer.id) ? 'Add Producer' : 'Edit Producer'}">Producer Form</title>
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #2f3e46  ;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{'/home'}">
+                <i class="fas fa-home mx-1"></i> Home
+            </a>
+
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/artist'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/producer'}">Producers</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-outline-light ms-2">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <h2 th:text="${#strings.isEmpty(producer.id) ? 'Add New Producer' : 'Edit Producer'}">Producer Form</h2>
+
+    <form method="post"
+          th:action="@{${#strings.isEmpty(producer.id) ? '/producer/create' : '/producer/edit/' + producer.id}}"
+          th:object="${producer}"
+          class="needs-validation border rounded p-4 shadow-sm bg-white">
+
+        <input th:field="*{id}" type="hidden"/>
+
+        <div class="mb-3">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control"
+                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">Invalid name
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="specialization">Specialization</label>
+            <input type="text" th:field="*{specialization}" id="specialization" class="form-control"
+                   th:classappend="${#fields.hasErrors('specialization')} ? 'is-invalid' : ''">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('specialization')}"
+                 th:errors="*{specialization}">Invalid specialization
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="originCountry">Origin Country</label>
+            <input type="text" th:field="*{originCountry}" id="originCountry" class="form-control"
+                   th:classappend="${#fields.hasErrors('originCountry')} ? 'is-invalid' : ''">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('originCountry')}"
+                 th:errors="*{originCountry}">Invalid country
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-yellow">Save</button>
+        <a href="/producer" class="btn btn-secondary ms-2">Cancel</a>
+
+    </form>
+</div>
+</body>
+</html>
